@@ -1,4 +1,4 @@
-package Catmandu::Importer::Activiti::RuntimeProcessInstance;
+package Catmandu::Importer::Activiti::HistoricTask;
 use Catmandu::Sane;
 use Catmandu::Util qw(:is :check :array);
 use Activiti::Rest;
@@ -44,7 +44,7 @@ sub generator {
         return if $start >= $total;
       }
 
-      my $res = $activiti->process_instances(
+      my $res = $activiti->historic_task_instances(
         %$params,
         start => $start,
         size => $size
@@ -64,13 +64,13 @@ sub generator {
 
 =head1 NAME
 
-Catmandu::Importer::Activiti::RuntimeProcessInstance - Package that imports runtime process instances from Activiti
+Catmandu::Importer::Activiti::HistoricTasks - Package that imports historic process instances from Activiti
 
 =head1 SYNOPSIS
 
-    use Catmandu::Importer::Activiti::RuntimeProcessInstance;
+    use Catmandu::Importer::Activiti::HistoricTasks;
 
-    my $importer = Catmandu::Importer::Activiti::RuntimeProcessInstance->new(
+    my $importer = Catmandu::Importer::Activiti::HistoricTasks->new(
       url => 'http://user:password@localhost:8080/activiti-rest/service',
       params => {
         includeProcessVariables => "true"
@@ -91,14 +91,14 @@ Create a new importer
 Arguments:
 
   url       base url for the activiti rest api
-  params    additional filters (see: http://www.activiti.org/userguide/#restProcessInstancesGet)
+  params    additional filters (see: http://www.activiti.org/userguide/#restHistoricTaskInstancesGet)
 
 =head2 each(&callback)
 
 =head2 ...
 
 Every Catmandu::Importer is a Catmandu::Iterable all its methods are inherited. The
-Catmandu::Importer::Activiti::RuntimeProcessInstance methods are not idempotent: Activiti feeds can only be read once.
+Catmandu::Importer::Activiti::HistoricTasks methods are not idempotent: Activiti feeds can only be read once.
 
 =head1 SEE ALSO
 

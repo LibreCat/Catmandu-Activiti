@@ -11,11 +11,11 @@ has url => (
   isa => sub { check_string($_[0]); },
   required => 1
 );
-has include_process_variables => (
+has params => (
   is => 'ro',
-  isa => sub { array_includes([qw(true false)],$_[0]) or die("must be true of false"); },
+  isa => sub { check_hash_ref($_[0]); },
   lazy => 1,
-  default => sub { "false"; }
+  default => sub { +{}; }
 );
 has _activiti => (
   is => 'ro',
@@ -35,6 +35,8 @@ sub generator {
     state $size = 100;
     state $total;
     state $results = [];
+    state $activiti = $self->_activiti();
+    state $params = $self->params();
 
     unless(@$results){
 
@@ -42,10 +44,10 @@ sub generator {
         return if $start >= $total;
       }
 
-      my $res = $self->_activiti->historic_process_instances(
+      my $res = $activiti->historic_process_instances(
+        %$params,
         start => $start,
-        size => $size,
-        includeProcessVariables => $self->include_process_variables()
+        size => $size
       )->parsed_content;
 
       $total = $res->{total};
@@ -69,7 +71,10 @@ Catmandu::Importer::Activiti::HistoricProcessInstance - Package that imports his
     use Catmandu::Importer::Activiti::HistoricProcessInstance;
 
     my $importer = Catmandu::Importer::Activiti::HistoricProcessInstance->new(
-      url => 'http://user:password@localhost:8080/activiti-rest/service'
+      url => 'http://user:password@localhost:8080/activiti-rest/service',
+      params => {
+        includeProcessVariables => "true"
+      }
     );
 
     my $n = $importer->each(sub {
@@ -85,7 +90,8 @@ Create a new importer
 
 Arguments:
 
-  include_process_variables   "true"|"false"  (default: "false")
+  url       base url for the activiti rest api
+  params    additional filters (see: http://www.activiti.org/userguide/#restHistoricProcessInstancesGet)
 
 =head2 each(&callback)
 
