@@ -1,7 +1,7 @@
 package Catmandu::Importer::Activiti::RuntimeProcessInstance;
 use Catmandu::Sane;
 use Catmandu::Util qw(:is :check :array);
-use Activiti::Rest;
+use Activiti::Rest::Client;
 use Moo;
 
 with 'Catmandu::Importer';
@@ -24,7 +24,7 @@ has _activiti => (
 );
 sub _build_activiti {
   my $self = $_[0];
-  Activiti::Rest->new(url => $self->url);
+  Activiti::Rest::Client->new(url => $self->url);
 }
 
 sub generator {

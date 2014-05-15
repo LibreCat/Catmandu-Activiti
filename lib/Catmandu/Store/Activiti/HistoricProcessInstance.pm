@@ -1,7 +1,7 @@
 package Catmandu::Store::Activiti::HistoricProcessInstance;
 use Catmandu::Sane;
 use Catmandu::Util qw(:is :check);
-use Activiti::Rest;
+use Activiti::Rest::Client;
 use Moo;
 
 with qw(Catmandu::Store);
@@ -18,7 +18,7 @@ has _activiti => (
 );
 sub _build_activiti {
   my $self = $_[0];
-  Activiti::Rest->new(url => $self->url);
+  Activiti::Rest::Client->new(url => $self->url);
 }
 
 package Catmandu::Store::Activiti::HistoricProcessInstance::Bag;
@@ -27,7 +27,6 @@ use Catmandu::Util qw(:check :is :array);
 use Catmandu::Hits;
 use Carp qw(confess);
 use Clone qw(clone);
-use Data::Dumper;
 
 with 'Catmandu::Bag';
 with 'Catmandu::Searchable';
@@ -78,6 +77,10 @@ sub generator {
 }
 sub add {
   die("not implemented");
+  # POST runtime/process-instances                      start new process
+  # PUT runtime/process-instances/:processInstanceId    activate|suspend an active process instance
+  #
+  # conclusion: real update of a process instance not interesting, i.e. does not follow Catmandu expectation of full data update
 }
 sub delete {  
   my($self,$id)=@_;

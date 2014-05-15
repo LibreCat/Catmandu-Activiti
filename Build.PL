@@ -6,7 +6,7 @@ my $requires = {
   perl => '5.10.0', 
   Carp => 0,
   'Catmandu' => '0.8014',
-  'Activiti::Rest' => '0.1',
+  'Activiti::Rest::Client' => '0.1',
 };
 my $recommends = {};
 my $build = Module::Build->new(
