@@ -18,7 +18,7 @@ name: Catmandu-Activiti
 provides:
   Catmandu::Activiti:
     file: lib/Catmandu/Activiti.pm
-    version: 0.1
+    version: 0.11
   Catmandu::Importer::Activiti::HistoricProcessInstance:
     file: lib/Catmandu/Importer/Activiti/HistoricProcessInstance.pm
   Catmandu::Importer::Activiti::HistoricTask:
@@ -38,4 +38,4 @@ requires:
   perl: v5.10.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.1
+version: 0.11
