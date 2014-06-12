@@ -44,10 +44,12 @@ sub generator {
         return if $start >= $total;
       }
 
-      my $res = $activiti->historic_process_instances(
-        %$params,
-        start => $start,
-        size => $size
+      my $res = $activiti->query_historic_process_instances(
+        content => {
+          %$params,
+          start => $start,
+          size => $size
+        }
       )->parsed_content;
 
       $total = $res->{total};

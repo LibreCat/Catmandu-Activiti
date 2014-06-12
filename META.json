@@ -3,8 +3,8 @@
    "author" : [
       "Nicolas Franck <nicolas.franck@ugent.be>"
    ],
-   "dynamic_config" : 0,
-   "generated_by" : "Module::Build version 0.4205",
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.4203",
    "license" : [
       "perl_5"
    ],
@@ -21,11 +21,16 @@
             "Test::More" : "0"
          }
       },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.42"
+         }
+      },
       "runtime" : {
          "requires" : {
-            "Activiti::Rest::Client" : "==0.1",
+            "Activiti::Rest::Client" : "0.1",
             "Carp" : "0",
-            "Catmandu" : "==0.8014",
+            "Catmandu" : "0.8014",
             "perl" : "v5.10.0"
          }
       }
